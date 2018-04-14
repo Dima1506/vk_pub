@@ -1,8 +1,15 @@
 import requests
+
+resp = requests.get("https://www.tinkoff.ru/api/v1/currency_rates/")
+birg = resp.json()['payload']['rates'][0]['buy']
+birg2 = resp.json()['payload']['rates'][1]['buy']
+print(birg, birg2)
+
 token = '08e35f615f6579bda204ef012617ea8703349210c983a34068f0e87af95a371be9559cbe0ef0ad969358d'
 
 
-
+requests.get('https://api.vk.com/method/notifications.markAsViewed',
+                    params={'v': 5.74, 'access_token': token}).json()['response']
 data = requests.get('https://api.vk.com/method/messages.getLongPollServer',
                     params={'v': 5.74, 'access_token': token}).json()['response']  # получение ответа от сервера
 data2 = requests.get('https://api.vk.com/method/messages.getDialogs',
@@ -26,3 +33,6 @@ while True:
             if element[0] == 80:
                 print(element[1])
     data['ts'] = response['ts']  # обновление номера последнего обновления
+    data5 = requests.get('https://api.vk.com/method/notifications.get',
+                         params={'v': 5.74, 'access_token': token}).json()['response']  # получение ответа от сервера
+    print(int(data5['count'])-int(data4['count']))
